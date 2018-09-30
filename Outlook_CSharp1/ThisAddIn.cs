@@ -1,6 +1,8 @@
 ﻿// New Project
 //
 using System;
+using System.Drawing;
+using System.Windows.Forms;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +32,7 @@ namespace Outlook_CSharp1
     {      
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
-        {
+        {        
             InitializeVariables();
 
             SetFolderStructure();
@@ -38,6 +40,10 @@ namespace Outlook_CSharp1
 
             this.Application.NewMail += new Microsoft.Office.Interop.Outlook
             .ApplicationEvents_11_NewMailEventHandler(ThisApplication_NewMail);
+
+            Outlook_CSharp1.FrmTray FormShow = new Outlook_CSharp1.FrmTray();
+            FormShow.Show();
+            FormShow.Hide();
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
