@@ -31,6 +31,9 @@ namespace Outlook_CSharp1
         {
             InitializeVariables();
 
+            SetFolderStructure();
+
+
             this.Application.NewMail += new Microsoft.Office.Interop.Outlook
             .ApplicationEvents_11_NewMailEventHandler(ThisApplication_NewMail);
         }
@@ -49,7 +52,8 @@ namespace Outlook_CSharp1
 
             Outlook.Items inBoxItems = inBox.Items;
             Outlook.MailItem newEmail = null;
-            Outlook.MAPIFolder destFolder = inBox.Folders["Processed"];
+            
+            //Outlook.MAPIFolder destFolder = inBox.Folders["Processed"];
             inBoxItems = inBoxItems.Restrict("[Unread] = true");
 
             try
@@ -67,6 +71,7 @@ namespace Outlook_CSharp1
                             {                         
                                 string filename = newEmail.Attachments[i].FileName;
                                 string subjectName = newEmail.Subject;
+                                Outlook.MAPIFolder destFolder = inBox.Folders[ subjectName ];
                                 newEmail.Attachments[i].SaveAsFile
                                     ( @"C:\TestFileSave\" + newEmail.Attachments[i].FileName );
                                 newEmail.Move( destFolder );
@@ -99,7 +104,28 @@ namespace Outlook_CSharp1
 
         private void SetFolderStructure()
         {
+            // Check to see if folder exists
+            // If it does not, add new folder
 
+            Outlook.MAPIFolder inBox = ( Outlook.MAPIFolder )
+                this.Application.ActiveExplorer().Session.GetDefaultFolder
+                ( Outlook.OlDefaultFolders.olFolderInbox );
+
+            Outlook.MAPIFolder customFolder = null;
+
+            for ( int i = 0; i <= GlobalVar.sAllFolders.Count - 1; i++ )
+            { 
+                try
+                {                    
+                    this.Application.ActiveExplorer().CurrentFolder = inBox.Folders[ GlobalVar.sAllFolders[i]];
+                    this.Application.ActiveExplorer().CurrentFolder.Display();
+                }
+                catch
+                {                    
+                    customFolder = ( Outlook.MAPIFolder )inBox.Folders.Add
+                        ( GlobalVar.sAllFolders[i], Outlook.OlDefaultFolders.olFolderInbox );
+                }
+            }
         }
 
         #region VSTO generated code
