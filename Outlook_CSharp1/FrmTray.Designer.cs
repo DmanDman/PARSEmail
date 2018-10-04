@@ -32,8 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmTray));
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsShow = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsHide = new System.Windows.Forms.ToolStripMenuItem();
+            this.TSShow = new System.Windows.Forms.ToolStripMenuItem();
+            this.TSHide = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,32 +49,39 @@
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(17, 17);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsShow,
-            this.tsHide});
+            this.TSShow,
+            this.TSHide});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(187, 71);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(108, 48);
             // 
-            // tsShow
+            // TSShow
             // 
-            this.tsShow.Name = "tsShow";
-            this.tsShow.Size = new System.Drawing.Size(186, 22);
-            this.tsShow.Text = "Show";
-            this.tsShow.Click += new System.EventHandler(this.tsShow_Click);
+            this.TSShow.Name = "TSShow";
+            this.TSShow.Size = new System.Drawing.Size(107, 22);
+            this.TSShow.Text = "Show";
+            this.TSShow.Click += new System.EventHandler(this.TSShow_Click);
             // 
-            // tsHide
+            // TSHide
             // 
-            this.tsHide.Name = "tsHide";
-            this.tsHide.Size = new System.Drawing.Size(186, 22);
-            this.tsHide.Text = "Hide";
-            this.tsHide.Click += new System.EventHandler(this.tsHide_Click);
+            this.TSHide.Name = "TSHide";
+            this.TSHide.Size = new System.Drawing.Size(107, 22);
+            this.TSHide.Text = "Hide";
+            this.TSHide.Click += new System.EventHandler(this.TSHide_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 5000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // FrmTray
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(421, 216);
             this.Name = "FrmTray";
             this.Text = "FrmTray";
+            this.Load += new System.EventHandler(this.FrmTray_Load);
             this.DoubleClick += new System.EventHandler(this.FrmTray_DoubleClick);
             this.Resize += new System.EventHandler(this.FrmTray_Resize);
             this.contextMenuStrip1.ResumeLayout(false);
@@ -83,9 +91,10 @@
 
         #endregion
 
-        private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem tsShow;
-        private System.Windows.Forms.ToolStripMenuItem tsHide;
+        public System.Windows.Forms.NotifyIcon notifyIcon1;
+        public System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        public System.Windows.Forms.ToolStripMenuItem TSShow;
+        public System.Windows.Forms.ToolStripMenuItem TSHide;
+        private System.Windows.Forms.Timer timer1;
     }
 }

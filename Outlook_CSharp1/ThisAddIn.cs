@@ -1,8 +1,10 @@
 ﻿// New Project
 //
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Windows.Forms.ComponentModel;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,8 +31,8 @@ namespace Outlook_CSharp1
     }
 
     public partial class ThisAddIn
+    
     {      
-
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {        
             InitializeVariables();
@@ -41,9 +43,12 @@ namespace Outlook_CSharp1
             this.Application.NewMail += new Microsoft.Office.Interop.Outlook
             .ApplicationEvents_11_NewMailEventHandler(ThisApplication_NewMail);
 
-            Outlook_CSharp1.FrmTray FormShow = new Outlook_CSharp1.FrmTray();
+            //Outlook_CSharp1.FrmTray FormShow = new Outlook_CSharp1.FrmTray();
+            //FormShow.Show();
+            //FormShow.Hide();
+            Form FormShow  = new FrmTray();
             FormShow.Show();
-            FormShow.Hide();
+            
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
@@ -52,7 +57,7 @@ namespace Outlook_CSharp1
             //    must run when Outlook shuts down, see https://go.microsoft.com/fwlink/?LinkId=506785
         }
 
-        private void ThisApplication_NewMail()
+        public void ThisApplication_NewMail()
         {
             Outlook.MAPIFolder inBox = this.Application.ActiveExplorer()
                 .Session.GetDefaultFolder(Outlook
